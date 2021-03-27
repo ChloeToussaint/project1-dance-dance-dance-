@@ -62,18 +62,17 @@ for (var i = 0; i < 1000; i++) {
 //
 var startButton = document.getElementById("start-button");
 startButton.onclick = startStop;
-var animationFrameId ;
+var animationFrameId;
 
 function startStop() {
     if (startButton.innerHTML == "Stop") {
         startButton.innerHTML = "Start";
         video.pause();
-        window.cancelAnimationFrame (animationFrameId);
-    }
-    else {
+        window.cancelAnimationFrame(animationFrameId);
+    } else {
         startButton.innerHTML = "Stop";
         video.play();
-        updateCanvas ();
+        updateCanvas();
     }
 }
 
@@ -91,9 +90,20 @@ function drawArrowFixed() {
     ctx.drawImage(arrowRightFaded, 300, 0, 80, 80);
 }
 
-document.body.addEventListener("keydown", event => {    
-    console.log (event.key);
-  });
+document.body.addEventListener("keydown", event => {
+    var currentArrow = arrows.filter(a => a.y > 0 && a.y < 80)[0];
+    if (currentArrow && currentArrow.direction === 0 && event.code === 'ArrowDown') {
+        console.log("success");
+    } else if (currentArrow && currentArrow.direction === 1 && event.code === 'ArrowLeft') {
+        console.log("success");
+    } else if (currentArrow && currentArrow.direction === 2 && event.code === 'ArrowUp') {
+        console.log("success");
+    } else if (currentArrow && currentArrow.direction === 3 && event.code === 'ArrowRight') {
+        console.log("success");
+    } else {
+        console.log("failure");
+    }
+});
 
 
 
