@@ -1,12 +1,25 @@
 <!doctype html>
 <html lang="fr">
+
 <head>
   <meta charset="utf-8">
   <title>Move Your Fingers to Dance !</title>
   <link rel="stylesheet" href="style.css">
-  <script src="js/index.js"></script>
 </head>
+
 <body>
-    <canvas id="example" width="500" height="800"></canvas>
+   <video autoplay muted id= "Video">
+    <source src="video/no-limit.mp4" type="video/mp4">      
+  </video>
+  <div id="container">
+    <canvas id="player1" width="380" height="800"></canvas>
+    <div id="menu">
+      <span>Player 1</span>
+      <button id="start-button" class="button" type="button">Start</button>
+      <span>Player 2</span>
+    </div>
+  </div>
+  <script src="js/index.js"></script>
 </body>
+
 </html>
