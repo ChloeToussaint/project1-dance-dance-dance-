@@ -3,6 +3,7 @@ var canvas = document.getElementById("player1");
 var ctx = canvas.getContext("2d");
 const X = canvas.width;
 const Y = canvas.height;
+const video = document.getElementById("video");
 
 //chargement des fleches mouvantes 
 var arrowDown = new Image();
@@ -53,7 +54,7 @@ class Arrow {
 
 //création des fleches de la partie en aleatoire
 let arrows = [];
-for (var i = 0; i < 100; i++) {
+for (var i = 0; i < 1000; i++) {
     let arrow = new Arrow(Math.floor(Math.random() * movingArrowsImages.length), i);
     arrows.push(arrow);
 }
@@ -66,10 +67,12 @@ var animationFrameId ;
 function startStop() {
     if (startButton.innerHTML == "Stop") {
         startButton.innerHTML = "Start";
+        video.pause();
         window.cancelAnimationFrame (animationFrameId);
     }
     else {
         startButton.innerHTML = "Stop";
+        video.play();
         updateCanvas ();
     }
 }
@@ -87,6 +90,11 @@ function drawArrowFixed() {
     ctx.drawImage(arrowUpFaded, 200, 0, 80, 80);
     ctx.drawImage(arrowRightFaded, 300, 0, 80, 80);
 }
+
+document.body.addEventListener("keydown", event => {    
+    console.log (event.key);
+  });
+
 
 
 
