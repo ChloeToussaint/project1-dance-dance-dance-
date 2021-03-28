@@ -90,7 +90,14 @@ document.body.addEventListener("keydown", event => {
         || match(1, currentArrow, 'ArrowLeft', event)
         || match(2, currentArrow, 'ArrowUp', event)
         || match(3, currentArrow, 'ArrowRight', event))) {
-        score = score + 10;
+        if (currentArrow.y < 10) {
+            score = score + 50;
+        } else if (currentArrow.y < 30) {
+            score = score + 30;
+        }
+        else { 
+            score = score + 10; 
+        }
     } else {
         console.log("failure");
     }
