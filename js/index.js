@@ -5,6 +5,9 @@ const X = canvas.width;
 const Y = canvas.height;
 const video = document.getElementById("video");
 
+const arrowWidth = 4*X/19;
+const arrowMargin = X/19;
+
 // Chargement des images
 var movingArrowsImages = ["arrow-down", "arrow-left", "arrow-up", "arrow-right"].map(name => createImage(name));
 var staticArrowsImages = ["arrow-down-faded", "arrow-left-faded", "arrow-up-faded", "arrow-right-faded"].map(name => createImage(name));
@@ -33,11 +36,11 @@ for (var i = 0; i < imageCount; i++) {
 class Arrow {
     constructor(direction, position) {
         this.direction = direction;
-        this.y = Y + position * 100;
+        this.y = Y + position * (arrowWidth+arrowMargin);
     }
     move() {
         this.y = this.y - 4;
-        ctx.drawImage(movingArrowsImages[this.direction], this.direction * 100, this.y, 80, 80);
+        ctx.drawImage(movingArrowsImages[this.direction], this.direction * (arrowWidth+arrowMargin), this.y, arrowWidth, arrowWidth);
     }
 }
 
@@ -73,16 +76,16 @@ function updateCanvas() {
 }
 
 function drawArrowFixed() {
-    ctx.drawImage(staticArrowsImages[0], 0, 0, 80, 80);
-    ctx.drawImage(staticArrowsImages[1], 100, 0, 80, 80);
-    ctx.drawImage(staticArrowsImages[2], 200, 0, 80, 80);
-    ctx.drawImage(staticArrowsImages[3], 300, 0, 80, 80);
+    ctx.drawImage(staticArrowsImages[0], 0, 0, arrowWidth, arrowWidth);
+    ctx.drawImage(staticArrowsImages[1], (arrowWidth+arrowMargin), 0, arrowWidth, arrowWidth);
+    ctx.drawImage(staticArrowsImages[2], 2*(arrowWidth+arrowMargin), 0, arrowWidth, arrowWidth);
+    ctx.drawImage(staticArrowsImages[3], 3*(arrowWidth+arrowMargin), 0, arrowWidth, arrowWidth);
 }
 
 
 var score = 0;
 document.body.addEventListener("keydown", event => {
-    var currentArrow = arrows.filter(a => a.y > 0 && a.y < 80)[0];
+    var currentArrow = arrows.filter(a => a.y > 0 && a.y < arrowWidth)[0];
     if (currentArrow && (match(0, currentArrow, 'ArrowDown', event)
         || match(1, currentArrow, 'ArrowLeft', event)
         || match(2, currentArrow, 'ArrowUp', event)

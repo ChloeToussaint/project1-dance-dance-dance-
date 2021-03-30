@@ -49,6 +49,7 @@ body {
 	display: flex;
 	font-size: 40px;
 	color : red;
+	margin-bottom: 20px;
 }
 
 .avatar img {
