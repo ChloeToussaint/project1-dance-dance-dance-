@@ -4,37 +4,39 @@
 <head>
   <meta charset="utf-8">
   <title>Move Your Fingers to Dance !</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style/style.css">
 </head>
 
 <body>
 
-   <video id="video">
+  <video id="video">
     <source src="video/no-limit.mp4" type="video/mp4">
   </video>
 
   <div id="container">
 
     <!-- PLAYER 1 -->
-    <div id="player1-container">
+    <div id="player1-container" class="player-container">
       <div class="avatar">
         <img src="images/ray0-removebg-preview.png" alt="avatar-player-1" class="avatar1">
         <div>Ray </div>
-        <div id ="player-one-score">0</div>
+        <progress max="5000" value="0"></progress>
       </div>
       <canvas id="player1" width="380" height="600"></canvas>
     </div>
 
+    <!-- MENU -->
     <div id="menu">
       <button id="start-button" class="button" type="button">Start</button>
     </div>
 
     <!-- PLAYER 2 -->
-    <div id="player1-container">
+    <div id="player2-container" class="player-container">
       <div class="avatar">
         <img src="images/image-removebg-preview.png" alt="avatar-player-2" class="avatar2">
         <div>Kim</div>
         <div id ="player-two-score">0</div>
+        <progress max="50000" value="0"></progress>
       </div>
       <canvas id="player2" width="380" height="600"></canvas>
     </div>

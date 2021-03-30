@@ -1,9 +1,10 @@
-canvas {
-	margin: 10px;
+@font-face {
+    font-family: 'arcade';
+    src: url("../font/arcadeclassic.ttf");
 }
 
 body {
-	background-color: grey;
+	font-family: 'arcade';
 }
 
 #container {
@@ -11,7 +12,11 @@ body {
 	justify-content: space-between;
 	position: fixed;
 	width: 100%;
-	padding: 20px;
+	margin-top: 20px;
+}
+
+.player-container{
+	margin: 0 30px;
 }
 
 .button {
@@ -21,7 +26,8 @@ body {
 	padding: 15px 32px;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 16px;
+	font-family: 'arcade';
+	font-size: 40px;
 }
 
 #menu {
@@ -36,12 +42,19 @@ body {
 	bottom: 0;
 	min-width: 100%;
 	min-height: 100%;
+	filter: brightness(50%);
 }
 
- .avatar {
+.avatar {
 	display: flex;
- }
+	font-size: 40px;
+	color : red;
+}
 
- .avatar img {
+.avatar img {
 	width: 100px;
- }
+}
+
+.avatar progress[value] {
+	 appearance: none;
+  }

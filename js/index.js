@@ -98,7 +98,7 @@ document.body.addEventListener("keydown", event => {
     } else {
         console.log("failure");
     }
-    document.getElementById("player-one-score").innerHTML = score;
+    document.querySelector('#player1-container progress').value = score;
 });
 
 function match(direction, currentArrow, keyCode, event) {
