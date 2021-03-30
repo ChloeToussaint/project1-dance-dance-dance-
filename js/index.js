@@ -1,14 +1,12 @@
-//Récuperation du contexte du canvas
+// Récuperation du contexte du canvas
 var canvas = document.getElementById("player1");
 var ctx = canvas.getContext("2d");
 const X = canvas.width;
 const Y = canvas.height;
 const video = document.getElementById("video");
 
-//chargement des fleches mouvantes 
+// Chargement des images
 var movingArrowsImages = ["arrow-down", "arrow-left", "arrow-up", "arrow-right"].map(name => createImage(name));
-
-// chargement fleches fixes
 var staticArrowsImages = ["arrow-down-faded", "arrow-left-faded", "arrow-up-faded", "arrow-right-faded"].map(name => createImage(name));
 
 function createImage(name) {
@@ -17,8 +15,7 @@ function createImage(name) {
     return image
 }
 
-
-//démarrage du jeu lorsque toutes les images sont "loaded"
+// Démarrage du jeu lorsque toutes les images sont "loaded"
 var images = movingArrowsImages.concat(staticArrowsImages);
 var imageCount = images.length;
 var imagesLoaded = 0;

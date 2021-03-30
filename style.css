@@ -8,16 +8,14 @@ body {
 
 #container {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	position: fixed;
-	bottom: 0;
 	width: 100%;
 	padding: 20px;
 }
 
 .button {
 	background-color: #4CAF50;
-	/* Green */
 	border: none;
 	color: white;
 	padding: 15px 32px;
@@ -39,3 +37,11 @@ body {
 	min-width: 100%;
 	min-height: 100%;
 }
+
+ .avatar {
+	display: flex;
+ }
+
+ .avatar img {
+	width: 100px;
+ }
