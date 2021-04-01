@@ -1,12 +1,14 @@
-// Récuperation du contexte du canvas
+// Récuperation du contexte des canvas
 var canvas = document.getElementById("player1");
 var ctx = canvas.getContext("2d");
+var canvas2 = document.getElementById("player2");
+var ctx2 = canvas2.getContext("2d");
+
 const X = canvas.width;
 const Y = canvas.height;
 const video = document.getElementById("video");
-
-const arrowWidth = 4*X/19;
-const arrowMargin = X/19;
+const arrowWidth = 4 * X / 19;
+const arrowMargin = X / 19;
 
 // Chargement des images
 var movingArrowsImages = ["arrow-down", "arrow-left", "arrow-up", "arrow-right"].map(name => createImage(name));
@@ -18,40 +20,27 @@ function createImage(name) {
     return image
 }
 
-// Démarrage du jeu lorsque toutes les images sont "loaded"
-var images = movingArrowsImages.concat(staticArrowsImages);
-var imageCount = images.length;
-var imagesLoaded = 0;
-
-for (var i = 0; i < imageCount; i++) {
-    images[i].onload = function () {
-        imagesLoaded++;
-        if (imagesLoaded == imageCount) {
-            // updateCanvas();
-        }
-    }
-}
-
-//Définition de la class "arrow"
+// Définition de la class "arrow"
 class Arrow {
     constructor(direction, position) {
         this.direction = direction;
-        this.y = Y + position * (arrowWidth+arrowMargin);
+        this.y = Y + position * (arrowWidth + arrowMargin);
     }
     move() {
         this.y = this.y - 4;
-        ctx.drawImage(movingArrowsImages[this.direction], this.direction * (arrowWidth+arrowMargin), this.y, arrowWidth, arrowWidth);
+        ctx.drawImage(movingArrowsImages[this.direction], this.direction * (arrowWidth + arrowMargin), this.y, arrowWidth, arrowWidth);
+        ctx2.drawImage(movingArrowsImages[this.direction], this.direction * (arrowWidth + arrowMargin), this.y, arrowWidth, arrowWidth);
     }
 }
 
-//création des fleches de la partie en aleatoire
+// Création des fleches de la partie en aleatoire
 let arrows = [];
 for (var i = 0; i < 1000; i++) {
     let arrow = new Arrow(Math.floor(Math.random() * movingArrowsImages.length), i);
     arrows.push(arrow);
 }
 
-//
+// Gestion du start/stop
 var startButton = document.getElementById("start-button");
 startButton.onclick = startStop;
 var animationFrameId;
@@ -70,41 +59,46 @@ function startStop() {
 
 function updateCanvas() {
     ctx.clearRect(0, 0, X, Y);
-    drawArrowFixed();
+    ctx2.clearRect(0, 0, X, Y);
+    drawArrowFixed(ctx);
+    drawArrowFixed(ctx2);
     arrows.forEach(arrow => arrow.move());
     animationFrameId = requestAnimationFrame(updateCanvas);
 }
 
-function drawArrowFixed() {
-    ctx.drawImage(staticArrowsImages[0], 0, 0, arrowWidth, arrowWidth);
-    ctx.drawImage(staticArrowsImages[1], (arrowWidth+arrowMargin), 0, arrowWidth, arrowWidth);
-    ctx.drawImage(staticArrowsImages[2], 2*(arrowWidth+arrowMargin), 0, arrowWidth, arrowWidth);
-    ctx.drawImage(staticArrowsImages[3], 3*(arrowWidth+arrowMargin), 0, arrowWidth, arrowWidth);
+function drawArrowFixed(context) {
+    context.drawImage(staticArrowsImages[0], 0, 0, arrowWidth, arrowWidth);
+    context.drawImage(staticArrowsImages[1], (arrowWidth + arrowMargin), 0, arrowWidth, arrowWidth);
+    context.drawImage(staticArrowsImages[2], 2 * (arrowWidth + arrowMargin), 0, arrowWidth, arrowWidth);
+    context.drawImage(staticArrowsImages[3], 3 * (arrowWidth + arrowMargin), 0, arrowWidth, arrowWidth);
 }
 
-
-var score = 0;
 document.body.addEventListener("keydown", event => {
+    progress1 = document.querySelector('#player1-container progress');
+    handleKey(event, ['ArrowDown', 'ArrowLeft', 'ArrowUp', 'ArrowRight'], progress1);
+    progress2 = document.querySelector('#player2-container progress');
+    handleKey(event, ['KeyS', 'KeyQ', 'KeyZ', 'KeyD'], progress2);
+});
+
+function handleKey(event, keys, progressBar) {
     var currentArrow = arrows.filter(a => a.y > 0 && a.y < arrowWidth)[0];
-    if (currentArrow && (match(0, currentArrow, 'ArrowDown', event)
-        || match(1, currentArrow, 'ArrowLeft', event)
-        || match(2, currentArrow, 'ArrowUp', event)
-        || match(3, currentArrow, 'ArrowRight', event))) {
+    var score = progressBar.value;
+    if (currentArrow && (match(0, currentArrow, keys[0], event)
+        || match(1, currentArrow, keys[1], event)
+        || match(2, currentArrow, keys[2], event)
+        || match(3, currentArrow, keys[3], event))) {
         if (currentArrow.y < 10) {
             score = score + 50;
         } else if (currentArrow.y < 30) {
             score = score + 30;
         }
-        else { 
-            score = score + 10; 
+        else {
+            score = score + 10;
         }
-    } else {
-        console.log("failure");
     }
-    document.querySelector('#player1-container progress').value = score;
-});
+    progressBar.value = score;
+}
 
 function match(direction, currentArrow, keyCode, event) {
     return currentArrow.direction === direction && event.code === keyCode;
 }
-
