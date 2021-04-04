@@ -3,12 +3,16 @@ var canvas = document.getElementById("player1");
 var ctx = canvas.getContext("2d");
 var canvas2 = document.getElementById("player2");
 var ctx2 = canvas2.getContext("2d");
+canvas2.style.visibility = "hidden";
+var avatar2 = document.querySelector("#player2-container .avatar");
+avatar2.style.visibility = "hidden";
 
 const X = canvas.width;
 const Y = canvas.height;
 const video = document.getElementById("video");
 const arrowWidth = 4 * X / 19;
 const arrowMargin = X / 19;
+
 
 // Chargement des images
 var movingArrowsImages = ["arrow-down", "arrow-left", "arrow-up", "arrow-right"].map(name => createImage(name));
@@ -102,3 +106,21 @@ function handleKey(event, keys, progressBar) {
 function match(direction, currentArrow, keyCode, event) {
     return currentArrow.direction === direction && event.code === keyCode;
 }
+
+//Gestion du second joueur
+
+var players = document.getElementById("2-Player-button");
+players.onclick = switchPlayerMode;
+function switchPlayerMode() {
+    if (players.innerHTML == "1 Player") {
+        players.innerHTML = "2 Players";
+        canvas2.style.visibility = "visible";
+        avatar2.style.visibility ="visible";
+    }
+    else {
+        players.innerHTML = "1 Player";
+        canvas2.style.visibility = "hidden";
+        avatar2.style.visibility ="hidden";
+    }
+}
+
