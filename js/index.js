@@ -79,12 +79,15 @@ function drawArrowFixed(context) {
 
 document.body.addEventListener("keydown", event => {
     progress1 = document.querySelector('#player1-container progress');
-    handleKey(event, ['ArrowDown', 'ArrowLeft', 'ArrowUp', 'ArrowRight'], progress1);
+    displayedScore = document.querySelector ('#player1-container span');
+    handleKey(event, ['ArrowDown', 'ArrowLeft', 'ArrowUp', 'ArrowRight'], progress1,displayedScore);
+
+    displayedScore2 = document.querySelector ('#player2-container span');
     progress2 = document.querySelector('#player2-container progress');
-    handleKey(event, ['KeyS', 'KeyQ', 'KeyZ', 'KeyD'], progress2);
+    handleKey(event, ['KeyS', 'KeyQ', 'KeyZ', 'KeyD'], progress2,displayedScore2);
 });
 
-function handleKey(event, keys, progressBar) {
+function handleKey(event, keys, progressBar, displayedScore) {
     var currentArrow = arrows.filter(a => a.y > 0 && a.y < arrowWidth)[0];
     var score = progressBar.value;
     if (currentArrow && (match(0, currentArrow, keys[0], event)
@@ -101,6 +104,7 @@ function handleKey(event, keys, progressBar) {
         }
     }
     progressBar.value = score;
+    displayedScore.innerHTML = score;
 }
 
 function match(direction, currentArrow, keyCode, event) {
@@ -114,13 +118,13 @@ players.onclick = switchPlayerMode;
 function switchPlayerMode() {
     if (players.innerHTML == "1 Player") {
         players.innerHTML = "2 Players";
-        canvas2.style.visibility = "visible";
-        avatar2.style.visibility ="visible";
+        canvas2.style.visibility = "hidden";
+        avatar2.style.visibility ="hidden";
     }
     else {
         players.innerHTML = "1 Player";
-        canvas2.style.visibility = "hidden";
-        avatar2.style.visibility ="hidden";
+        canvas2.style.visibility = "visible";
+        avatar2.style.visibility ="visible";
     }
 }
 
